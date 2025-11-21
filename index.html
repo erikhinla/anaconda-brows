@@ -83,7 +83,8 @@
             gap: 12px;
         }
 
-        .logo-icon {
+        .2105
+        {
             width: 45px;
             height: 45px;
             background: linear-gradient(135deg, var(--brow-brown), var(--brow-gold));
@@ -579,7 +580,8 @@
             border-top: 1px solid var(--gray-200);
         }
 
-        .btn {
+        648
+        
             padding: 14px 32px;
             border-radius: 50px;
             font-weight: 600;
@@ -655,13 +657,166 @@
 <body>
     <div class="brow-pattern"></div>
 
+            /* ===== VIDEO INTEGRATION STYLES ===== */
+        
+        /* Hero Video Container */
+        #hero-video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+        
+        #hero-video.fade-out {
+            opacity: 0;
+        }
+        
+        #hero-static-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 2;
+        }
+        
+        #hero-static-image.fade-in {
+            opacity: 1;
+        }
+        
+        /* Background Parallax Videos */
+        .parallax-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .parallax-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            opacity: 0.3;
+            mix-blend-mode: screen;
+            filter: blur(3px);
+        }
+        
+        /* Book Now Video Modal */
+        #book-now-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        #book-now-modal.active {
+            display: flex;
+        }
+        
+        #book-now-video {
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Updated Header for Adda Brow */
+        .header .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header .adda-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--brow-gold);
+        }
+        
+        .header .adda-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--brow-brown);
+        }
+        
+        @media (max-width: 768px) {
+            #hero-video-container {
+                height: 60vh;
+            }
+            
+            .header .adda-image {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .header .adda-name {
+                font-size: 1.2rem;
+            }
+            
+            #book-now-video {
+                max-width: 95%;
+                max-height: 80%;
+            }
+        }
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <a href="#" class="logo">
-                <span class="logo-icon">👁️</span>
-                <span class="playfair">Anaconda Brows</span>
-            </a>
+                <div class="logo-container">
+                    <img src="./images/adda-brow.jpg" alt="Adda Brow" class="adda-image">
+                    <span class="adda-name">Adda Brow</span>
+                </div>
             <a href="#booking" class="header-cta">Book Now</a>
         </div>
     </header>
@@ -1253,11 +1408,8 @@
             console.log('Booking submission:', data);
             
             // Show success message
-            alert(`Thank you! Your consultation has been requested. We'll contact you within 24 hours to confirm your appointment. Check your email for your personalized Brow Persona guide and $50 off coupon!`);
-            
-            // Redirect or show confirmation
-            // window.location.href = 'https://anacondabrows.com/booking-confirmed';
-        }
+            // Show book now video after quiz submission
+            showBookNowModal();
     </script>
 </body>
 </html><!DOCTYPE html>
@@ -1917,6 +2069,34 @@
 <body>
     <div class="brow-pattern"></div>
 
+        <!-- Hero Video Section -->
+    <div id="hero-video-container">
+        <video id="hero-video" autoplay muted playsinline>
+            <source src="./videos/hero-intro.mp4" type="video/mp4">
+        </video>
+        <img id="hero-static-image" src="./images/adda-brow-logo.png" alt="Adda Brow - Anaconda Brows">
+    </div>
+
+    <!-- Parallax Background Videos -->
+    <div class="parallax-video-container" id="parallax-container-1">
+        <video class="parallax-video" autoplay loop muted playsinline>
+            <source src="./videos/background-1.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="parallax-video-container" id="parallax-container-2" style="display: none;">
+        <video class="parallax-video" autoplay loop muted playsinline>
+            <source src="./videos/background-2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Book Now Modal -->
+    <div id="book-now-modal">
+        <span class="close-modal" onclick="closeBookNowModal()">&times;</span>
+        <video id="book-now-video" controls autoplay>
+            <source src="./videos/AB_book-now-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -2521,5 +2701,97 @@
             // window.location.href = 'https://anacondabrows.com/booking-confirmed';
         }
     </script>
+
+            // ===== VIDEO INTEGRATION JAVASCRIPT =====
+        
+        // Hero Video Animation
+        const heroVideo = document.getElementById('hero-video');
+        const heroStaticImage = document.getElementById('hero-static-image');
+        const heroContainer = document.getElementById('hero-video-container');
+        
+        if (heroVideo && heroStaticImage) {
+            heroVideo.addEventListener('ended', function() {
+                heroVideo.classList.add('fade-out');
+                heroStaticImage.classList.add('fade-in');
+                
+                // Hide hero container after transition
+                setTimeout(() => {
+                    heroContainer.style.display = 'none';
+                }, 1500);
+            });
+            
+            // Auto-hide hero after video plays (fallback if video doesn't load)
+            setTimeout(() => {
+                if (heroContainer.style.display !== 'none') {
+                    heroVideo.classList.add('fade-out');
+                    heroStaticImage.classList.add('fade-in');
+                    setTimeout(() => {
+                        heroContainer.style.display = 'none';
+                    }, 1500);
+                }
+            }, 8000); // Adjust based on your video length
+        }
+        
+        // Parallax Background Video Effect
+        let currentParallaxVideo = 1;
+        const parallaxContainer1 = document.getElementById('parallax-container-1');
+        const parallaxContainer2 = document.getElementById('parallax-container-2');
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const parallaxVideos = document.querySelectorAll('.parallax-video');
+            
+            parallaxVideos.forEach(video => {
+                const speed = 0.5;
+                video.style.transform = `translate(-50%, calc(-50% + ${scrollPosition * speed}px))`;
+            });
+            
+            // Switch parallax videos based on scroll position
+            if (scrollPosition > 1000 && currentParallaxVideo === 1) {
+                parallaxContainer1.style.display = 'none';
+                parallaxContainer2.style.display = 'block';
+                currentParallaxVideo = 2;
+            } else if (scrollPosition <= 1000 && currentParallaxVideo === 2) {
+                parallaxContainer1.style.display = 'block';
+                parallaxContainer2.style.display = 'none';
+                currentParallaxVideo = 1;
+            }
+        });
+        
+        // Book Now Video Modal Functions
+        function showBookNowModal() {
+            const modal = document.getElementById('book-now-modal');
+            const video = document.getElementById('book-now-video');
+            if (modal && video) {
+                modal.classList.add('active');
+                video.play();
+                
+                // Auto-close when video ends and redirect
+                video.addEventListener('ended', function() {
+                    closeBookNowModal();
+                    // Redirect to booking page
+                    setTimeout(() => {
+                        window.location.href = '#booking';
+                    }, 500);
+                });
+            }
+        }
+        
+        function closeBookNowModal() {
+            const modal = document.getElementById('book-now-modal');
+            const video = document.getElementById('book-now-video');
+            if (modal && video) {
+                modal.classList.remove('active');
+                video.pause();
+                video.currentTime = 0;
+            }
+        }
+        
+        // Close modal when clicking outside video
+        document.getElementById('book-now-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookNowModal();
+            }
+        });
 </body>
 </html>
