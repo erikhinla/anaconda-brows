@@ -1412,6 +1412,48 @@
             // Show success message
             // Show book now video after quiz submission
             showBookNowModal();
+
+        // Initialize event listeners when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Attach click handler to start quiz button
+    const startBtn = document.querySelector('.cta-button');
+    if (startBtn) {
+        startBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            startQuiz();
+        });
+    }
+    
+    // Attach form submit handler
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', submitBooking);
+    }
+    
+    // Initialize videos with error handling
+    const videos = document.querySelectorAll('video');
+    videos.forEach(function(video) {
+        video.addEventListener('error', function() {
+            console.error('Video failed to load:', this.src);
+            // Hide video element if it fails to load
+            this.style.display = 'none';
+        });
+        
+        // Attempt to play videos
+        video.play().catch(function(error) {
+            console.log('Video autoplay prevented:', error);
+        });
+    });
+    
+    // Attach quiz option click handlers
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.option')) {
+            selectOption(e);
+        }
+    });
+    
+    console.log('Anaconda Brows quiz initialized');
+});
     </script>
 </body>
     </html>
