@@ -134,6 +134,15 @@
             display: block;
         }
 
+                /* Welcome Screen Display Control */
+        #welcome {
+            display: block;
+        }
+        
+        #welcome:not(.active) {
+            display: none;
+        }
+
         @keyframes fadeInScale {
             from {
                 opacity: 0;
@@ -826,7 +835,7 @@
     <!-- Quiz Container -->
     <div class="quiz-container">
         <!-- Welcome Screen -->
-            <div id="welcome">            <div class="welcome-header">
+            <div id="welcome" class="active">            <div class="welcome-header">
                 <div class="welcome-badge">2-MINUTE QUIZ</div>
                 <h1 class="welcome-title playfair">Discover Your Perfect Brow Persona</h1>
                 <p class="welcome-subtitle">
